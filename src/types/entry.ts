@@ -1,4 +1,4 @@
-type Journal = {
+type Entry = {
     title: string
     body: string
 }
