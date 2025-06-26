@@ -1,6 +1,6 @@
 import { EntriesContext } from "@/context/EntriesContext"
 import { useContext, useState, useEffect } from "react"
-import { Entry } from "./Entry"
+import { EntryCard } from "./EntryCard"
 
 const PLANS_PER_PAGE = 12
 
@@ -36,7 +36,7 @@ export const Entries: React.FC = () => {
             <div className="entries">
                 {
                     entries.map( entry => (
-                            <Entry id={entry.id}></Entry>
+                            <EntryCard id={entry.id}></EntryCard>
                     ))
                 }   
             </div>
