@@ -18,6 +18,13 @@ export const Entry = ({id}: {id: string}) => {
         <div id="entry">
             <h1>{entry.title}</h1>
             <p>{entry.body}</p>
+            <div id="comments">
+                {
+                    entry.comments.map( comment => (
+                            <p id="comment">{comment}</p>
+                    ))
+                } 
+            </div>
         </div>
     )
 }
