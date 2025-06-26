@@ -44,6 +44,11 @@ export const EntriesProvider: React.FC<{ children: ReactNode }> = ({ children })
         }
     }
 
+    useEffect(() => {
+        getEntries()
+        return
+    }, [])
+
     return (
         <EntriesContext.Provider value={{
             entries: entries,
