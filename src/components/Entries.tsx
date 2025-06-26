@@ -4,7 +4,7 @@ import { Entry } from "./Entry"
 
 const PLANS_PER_PAGE = 12
 
-export const PlanList: React.FC = () => {
+export const Entries: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)
     const entriesContextData = useContext(EntriesContext)
     const entries = entriesContextData.entries
