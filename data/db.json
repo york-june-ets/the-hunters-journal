@@ -3,32 +3,38 @@
         {
             "id": "1",
             "title": "Journal 1 Title",
-            "body": "Journal 1 Body"
+            "body": "Journal 1 Body",
+            "comments": []
         },
         {
             "id": "2",
             "title": "Journal 2 Title",
-            "body": "Journal 2 Body"
+            "body": "Journal 2 Body",
+            "comments": []
         },
         {
             "id": "3",
             "title": "Journal 3 Title",
-            "body": "Journal 3 Body"
+            "body": "Journal 3 Body",
+            "comments": []
         },
         {
             "id": "4",
             "title": "Journal 4 Title",
-            "body": "Journal 4 Body"
+            "body": "Journal 4 Body",
+            "comments": []
         },
         {
             "id": "5",
             "title": "Journal 5 Title",
-            "body": "Journal 5 Body"
+            "body": "Journal 5 Body",
+            "comments": []
         },
         {
             "id": "6",
             "title": "Journal 6 Title",
-            "body": "Journal 6 Body"
+            "body": "Journal 6 Body",
+            "comments": []
         }
     ]
 }
