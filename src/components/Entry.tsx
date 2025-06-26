@@ -2,8 +2,6 @@ import { EntriesContext } from "@/context/EntriesContext"
 import { useState, useEffect, useContext, useRef } from "react"
 
 export const Entry = ({id}: {id: string}) => {
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
     const entriesContextData = useContext(EntriesContext)
     const entries = entriesContextData.entries
     const entry = entries.find(entry => entry.id === id)
