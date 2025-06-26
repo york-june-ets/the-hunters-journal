@@ -15,7 +15,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 Next, run the JSON server:
 
 ```bash
-npx json-server --watch data/db.json --port 8000 
+npm run json-server
 
 
 Open [http://localhost:8000](http://localhost:8000) to see the application.
