@@ -1,5 +1,28 @@
 {
-    "journals": [
-        
+    "entries": [
+        {
+            "title": "Journal 1 Title",
+            "body": "Journal 1 Body"
+        },
+        {
+            "title": "Journal 2 Title",
+            "body": "Journal 2 Body"
+        },
+        {
+            "title": "Journal 3 Title",
+            "body": "Journal 3 Body"
+        },
+        {
+            "title": "Journal 4 Title",
+            "body": "Journal 4 Body"
+        },
+        {
+            "title": "Journal 5 Title",
+            "body": "Journal 5 Body"
+        },
+        {
+            "title": "Journal 6 Title",
+            "body": "Journal 6 Body"
+        }
     ]
 }
