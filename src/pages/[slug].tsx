@@ -1,6 +1,6 @@
 import { Entry } from "@/types/entry"
-import { useState } from "react"
-import { getEntries, getEntryBySlug, postComment, slug } from "@/lib/entries"
+import { useEffect, useState } from "react"
+import { fetchComments, getEntries, getEntryBySlug, postComment, slug } from "@/lib/entries"
 import { GetStaticPaths, GetStaticPropsContext } from "next"
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -20,6 +20,7 @@ export const getStaticProps = async ({params}: GetStaticPropsContext) => {
 export default function EntryPage({entry}: {entry: Entry}) {
     const [comment, setComment] = useState<string>("")
     const [comments, setComments] = useState<string[]>(entry.comments)
+    const [refresh, setRefresh] = useState<boolean>(false)
 
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         setComment(event.target.value)
@@ -30,13 +31,21 @@ export default function EntryPage({entry}: {entry: Entry}) {
         try {
             const success = await postComment(entry, comment)
             if (success) {
-                setComments(prev => [...prev, comment])
+                setRefresh(true) //refetch comments when new comment is posted
                 setComment("")
             }
         } catch (error) {
             console.error(`Failed to post comment: ${comment}`)
         }
     }
+
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            setComments(await fetchComments(entry.id))
+        }, 5000)
+        setRefresh(false)
+        return () => clearInterval(interval)
+    }, [entry.id, refresh])
 
     return (
         <div id="entry">
