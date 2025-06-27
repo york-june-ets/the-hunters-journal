@@ -36,7 +36,7 @@ export const Entries: React.FC = () => {
             <div className="entries">
                 {
                     entries.map( entry => (
-                            <EntryCard id={entry.id}></EntryCard>
+                            <EntryCard key={entry.id} id={entry.id}></EntryCard>
                     ))
                 }   
             </div>
