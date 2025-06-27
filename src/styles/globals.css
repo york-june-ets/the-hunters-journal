@@ -1,0 +1,15 @@
+/* Header */
+#site-title {
+    font-family: fantasy;
+    font-size: 75px;
+    text-align: center;
+}
+
+/* Body */
+body {
+    background-image: url('/background.avif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+

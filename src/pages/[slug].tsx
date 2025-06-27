@@ -49,8 +49,8 @@ export default function EntryPage({entry}: {entry: Entry}) {
 
     return (
         <div id="entry">
-            <h1>{entry.title}</h1>
-            <p>{entry.body}</p>
+            <h1 id="title">{entry.title}</h1>
+            <p id="body">{entry.body}</p>
             <div id="comments">
                 {
                     comments.map((comment, index) => (
