@@ -21,14 +21,15 @@ export const getEntryBySlug = async (entrySlug: string) => {
 }
 
 export const fetchComments = async (entryId: string) => {
-    const url = `http://localhost:3000/entries/${entryId}`
+    const url = `http://localhost:8000/entries/${entryId}`
     const response = await fetch(url, {
         method: "GET"
     })
     if (!response.ok) {
         throw new Error(`Error fetching comments`)
     }
-    return await response.json()
+    const data = await response.json()
+    return data.comments
 }
 
 export const postComment = async (entry: Entry, comment: string): Promise<string> => {
