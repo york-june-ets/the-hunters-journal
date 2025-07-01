@@ -19,9 +19,7 @@ export const EntryCard = ({id}: {id: string}) => {
 
     return (
         <div id="entry-card">
-            <h2>{entry.title}</h2>
-            <p>{entry.body}</p>
-            <Link href={`/${slug(entry.title)}`}>Read more</Link>
+            <Link href={`/${slug(entry.title)}`}>{entry.title}</Link>
         </div>
     )
 }
