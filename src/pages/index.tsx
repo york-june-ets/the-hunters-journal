@@ -1,17 +1,32 @@
-import { JSX, useEffect, useState } from "react"
+import { useState } from "react"
+import styles from '@/styles/Journal.module.css'
 import { JournalCover } from "@/components/JournalCover"
 import { TableOfContents } from "@/components/TableOfContents"
 
 export default function Journal() {
-    const [component, setComponent] = useState<JSX.Element>(<JournalCover></JournalCover>)
+    const [open, setOpen] = useState<boolean>(false)
 
     const openJournal = () => {
-        setComponent(<TableOfContents></TableOfContents>)
+        setOpen(true)
     }
+
+    // const closeJournal = () => {
+    //     setOpen(false)
+    //     setComponent(<JournalCover></JournalCover>)
+    // }
 
     return (
         <div id="book">
-            <button className="component" onClick={openJournal}>{component}</button>
+            {!open && (
+                <div className={styles.cover} onClick={openJournal}>
+                    <JournalCover></JournalCover>
+                </div>
+            )}
+            {open && (
+                <div className={styles.page}>
+                    <TableOfContents></TableOfContents>
+                </div>
+            )}
         </div>
     )
 }
