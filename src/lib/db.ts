@@ -5,7 +5,7 @@ const pool = new Pool({
   port: 5432,
   user: 'postgres',
   password: 'postgres',
-  database: 'your_db_name', // match your Docker/Postgres db name
+  database: 'the-hunters-journal', // match your Docker/Postgres db name
 });
 
 export async function query<T = any>(

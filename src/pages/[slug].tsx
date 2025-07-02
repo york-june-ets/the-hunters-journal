@@ -1,57 +1,57 @@
 import { Entry } from "@/types/entry"
 import { useEffect, useState } from "react"
-import { fetchComments, getEntries, getEntryBySlug, postComment, slug } from "@/lib/entries"
+import { fetchEntries, fetchEntryBySlug, slugify } from "@/lib/entries"
 import { GetStaticPaths, GetStaticPropsContext } from "next"
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const entries = await getEntries()
+    const entries = await fetchEntries()
     const paths = entries.map((entry: { title: string }) => ({
-        params: {slug: slug(entry.title)}
+        params: {slug: slugify(entry.title)}
     }))
     return {paths, fallback: false}
 }
 
 export const getStaticProps = async ({params}: GetStaticPropsContext) => {
     if (typeof params?.slug !== "string") {return}
-    const entry = await getEntryBySlug(params?.slug)
+    const entry = await fetchEntryBySlug(params?.slug)
     return { props: {entry}}
 }
 
 export default function EntryPage({entry}: {entry: Entry}) {
-    const [comment, setComment] = useState<string>("")
-    const [comments, setComments] = useState<string[]>(entry.comments)
-    const [refresh, setRefresh] = useState<boolean>(false)
+    // const [comment, setComment] = useState<string>("")
+    // const [comments, setComments] = useState<string[]>(entry.comments)
+    // const [refresh, setRefresh] = useState<boolean>(false)
 
-    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-        setComment(event.target.value)
-    }
+    // const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    //     setComment(event.target.value)
+    // }
 
-    const handleSubmit = async (event:React.FormEvent) => {
-        event.preventDefault()
-        try {
-            const success = await postComment(entry, comment)
-            if (success) {
-                setRefresh(true) //refetch comments when new comment is posted
-                setComment("")
-            }
-        } catch (error) {
-            console.error(`Failed to post comment: ${comment}`)
-        }
-    }
+    // const handleSubmit = async (event:React.FormEvent) => {
+    //     event.preventDefault()
+    //     try {
+    //         const success = await postComment(entry, comment)
+    //         if (success) {
+    //             setRefresh(true) //refetch comments when new comment is posted
+    //             setComment("")
+    //         }
+    //     } catch (error) {
+    //         console.error(`Failed to post comment: ${comment}`)
+    //     }
+    // }
 
-    useEffect(() => {
-        const interval = setInterval(async () => {
-            setComments(await fetchComments(entry.id))
-        }, 5000)
-        setRefresh(false)
-        return () => clearInterval(interval)
-    }, [entry.id, refresh])
+    // useEffect(() => {
+    //     const interval = setInterval(async () => {
+    //         setComments(await fetchComments(entry.id))
+    //     }, 5000)
+    //     setRefresh(false)
+    //     return () => clearInterval(interval)
+    // }, [entry.id, refresh])
 
     return (
         <div id="entry">
             <h1 id="title">{entry.title}</h1>
             <p id="body">{entry.body}</p>
-            <div id="comments">
+            {/* <div id="comments">
                 {
                     comments.map((comment, index) => (
                             <p key={index} id="comment">{comment}</p>
@@ -61,7 +61,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
             <form onSubmit={handleSubmit}>
                 <input placeholder="Add a comment" value={comment} onChange={handleChange}></input>
                 <button type="submit">Post</button>
-            </form>
+            </form> */}
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import { EntriesContext } from "@/context/EntriesContext"
-import { slug } from "@/lib/entries"
+import { slugify } from "@/lib/entries"
 import Link from "next/link"
 import {useContext} from "react"
 
@@ -19,7 +19,7 @@ export const EntryCard = ({id}: {id: string}) => {
 
     return (
         <div id="entry-card">
-            <Link href={`/${slug(entry.title)}`}>{entry.title}</Link>
+            <Link href={`/${slugify(entry.title)}`}>{entry.title}</Link>
         </div>
     )
 }

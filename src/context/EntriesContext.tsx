@@ -1,5 +1,6 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from "react"
 import { Entry } from "@/types/entry"
+import { fetchEntries } from "@/lib/entries"
 
 interface EntriesContextValue {
     entries: Entry[]
@@ -18,34 +19,18 @@ export const EntriesProvider: React.FC<{ children: ReactNode }> = ({ children })
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
 
-
-    const getEntries = async () => {
-        const url = `http://localhost:8000/entries`
-        try {
-            const response = await fetch(url)
-            if (!response.ok) {
-                throw new Error("Network request failed")
-            }
-            const data = await response.json() as Entry[]
-            setEntries(data)
-            setLoading(false)
-            setError(null)
-        }
-        catch (err) {
-            let message: string
-            if (err instanceof Error) {
-                message = (`Proper Error: ${err.message}`)
-            }
-            else {
-                message = (`Unknown Error: ${err}`)
-            }
-            setError(message)
-            setLoading(false)
-        }
-    }
-
     useEffect(() => {
-        getEntries()
+        const loadEntries = async () => {
+            try {
+                const data: Entry[] = await fetchEntries()
+                setEntries(data)
+            } catch (error) {
+                setError(`Failed to load entries`)
+            } finally {
+                setLoading(false)
+            }
+        }
+        loadEntries()
         return
     }, [])
 
