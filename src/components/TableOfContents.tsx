@@ -5,9 +5,11 @@ import styles from "@/styles/TableOfContents.module.css"
 export const TableOfContents = () => {
     return (
         <div className={styles.tableOfContents}>
-            <h1>Table of Contents</h1>
+            <h1 className={styles.tocTitle}>Table of Contents</h1>
             <EntriesProvider>
-                <Entries></Entries>
+                <div className={styles.entriesContainer}>
+                    <Entries/>
+                </div>
             </EntriesProvider>
         </div>
     )

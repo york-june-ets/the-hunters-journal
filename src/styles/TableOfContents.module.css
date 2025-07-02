@@ -8,7 +8,16 @@
     border: 4px solid #3e2c1a;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     display: flex;
+    flex-flow: column nowrap;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: start;
+    text-align: start;
+}
+
+.tocTitle {
+    margin: 30px 10px 30px 10px;
+}
+
+.entriesContainer {
+    margin: 30px 10px 30px 10px;
 }
