@@ -3,9 +3,14 @@ import { slugify } from "@/lib/entries"
 import { Entry } from "@/types/entry"
 import { NextApiRequest, NextApiResponse } from "next"
 
-const getEntries = async () => {
+export const getEntries = async () => {
     const {rows} = await query('SELECT * FROM entries ORDER BY id DESC')
     return rows
+}
+
+export const getEntryBySlug = async (slug: string) => {
+    const entries = await getEntries()
+    return entries.find((entry: Entry) => slugify(entry.title) === slug)
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
