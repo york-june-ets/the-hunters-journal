@@ -19,12 +19,13 @@ export default function Journal() {
         <div id="book">
             {!open && (
                 <div className={styles.cover} onClick={openJournal}>
-                    <JournalCover></JournalCover>
+                    <JournalCover/>
                 </div>
             )}
             {open && (
-                <div className={styles.page}>
-                    <TableOfContents></TableOfContents>
+                <div className={styles.cover}>
+                    <div className={styles.backCover}></div>
+                    <TableOfContents/>
                 </div>
             )}
         </div>
