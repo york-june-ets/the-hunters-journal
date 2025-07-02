@@ -12,11 +12,11 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 
 ## Running the Server
 
-Next, run the JSON server:
+Next, run docker/postgres:
 
 ```bash
-npm run json-server
+npm run docker
 
 
-Open [http://localhost:8000](http://localhost:8000) to see the application.
+Open [http://localhost:3000](http://localhost:3000/api/entries) to see the application.
 
