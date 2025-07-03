@@ -15,15 +15,15 @@ export const createUser = async (user: Omit<User, 'id'>): Promise<User> => {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    //GET
     if (req.method === 'GET') {
         const users = await getUsers()
         return res.status(200).json(users)
-    }
-    //POST
-    if (req.method === 'POST') {
+    } else if (req.method === 'POST') {
         const {name, email, password, isHunter} = req.body
         const newUser = await createUser({name, email, password, isHunter})
         return res.status(201).json(newUser)
+    } else {
+        res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE'])
+        res.status(405).end(`Method ${req.method} Not Allowed`)
     }
 }
