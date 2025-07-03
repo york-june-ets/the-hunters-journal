@@ -1,33 +1,11 @@
-import { useState } from "react"
-import styles from '@/styles/Journal.module.css'
-import { JournalCover } from "@/components/JournalCover"
-import { TableOfContents } from "@/components/TableOfContents"
+import { Login } from "@/components/Login"
 
-export default function Journal() {
-    const [open, setOpen] = useState<boolean>(false)
 
-    const openJournal = () => {
-        setOpen(true)
-    }
-
-    // const closeJournal = () => {
-    //     setOpen(false)
-    //     setComponent(<JournalCover></JournalCover>)
-    // }
+export default function Home() {
 
     return (
-        <div id="book">
-            {!open && (
-                <div className={styles.cover} onClick={openJournal}>
-                    <JournalCover/>
-                </div>
-            )}
-            {open && (
-                <div className={styles.cover}>
-                    <div className={styles.backCover}></div>
-                    <TableOfContents/>
-                </div>
-            )}
+        <div>
+            <Login/>
         </div>
     )
 }
