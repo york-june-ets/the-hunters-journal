@@ -8,8 +8,9 @@ export const getUsers = async () => {
 }
 
 export const createUser = async (user: Omit<User, 'id'>): Promise<User> => {
-    const {rows} = await query('INSERT into users (name, email, password, hunter) VALEUS ($1, $2, $3, $4) RETURNING *)',
-    [user.name, user.email, user.password, user.isHunter]
+    const {rows} = await query(
+        'INSERT into users (name, email, password, is_hunter) VALUES ($1, $2, $3, $4)',
+        [user.name, user.email, user.password, user.is_hunter]
     )
     return rows[0]
 }
@@ -19,8 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const users = await getUsers()
         return res.status(200).json(users)
     } else if (req.method === 'POST') {
-        const {name, email, password, isHunter} = req.body
-        const newUser = await createUser({name, email, password, isHunter})
+        const {name, email, password, is_hunter} = req.body
+        const newUser = await createUser({name, email, password, is_hunter})
         return res.status(201).json(newUser)
     } else {
         res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE'])

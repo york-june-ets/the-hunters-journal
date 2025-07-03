@@ -1,14 +1,15 @@
+import { User } from "@/types/user"
 import Link from "next/link"
 import { useState } from "react"
+
+interface FormData {
+        email: string
+        password: string
+}
 
 export default function Login() {
     const [formData, setFormData] = useState<FormData>({email: "", password: ""})
     const [loading, setLoading] = useState<boolean>(false)
-
-    interface FormData {
-        email: string
-        password: string
-    }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target
@@ -30,8 +31,8 @@ export default function Login() {
         <div>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <label>Email: &nbsp;<input type="email" onChange={handleChange}></input></label>
-                <label>Password: &nbsp;<input type="password" onChange={handleChange}></input></label>
+                <label>Email: &nbsp;<input type="email" name="email" onChange={handleChange}></input></label>
+                <label>Password: &nbsp;<input type="password" name="password" onChange={handleChange}></input></label>
                 <label><input type="checkbox"></input>I am a hunter</label>
                 <button type="submit">Login</button>
             </form>

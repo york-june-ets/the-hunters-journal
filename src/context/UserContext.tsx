@@ -6,7 +6,7 @@ interface UserContextType {
     setUser: (u: Omit<User,"password"> | null) => void
 }
 
-const UserContext = createContext<UserContextType | null>(null)
+export const UserContext = createContext<UserContextType | null>(null)
 
 export function UserProvider({children}: {children: ReactNode}) {
     const [user, setUser] = useState<Omit<User,"password"> | null>(null)

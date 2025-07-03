@@ -1,6 +1,6 @@
 import { User } from "@/types/user"
 
-export const fetchUsers = async () => {
+export const fetchUsers = async (): Promise<User[]> => {
     const url = `/api/users`
     const response = await fetch(url, {
         method: "GET"
@@ -12,7 +12,12 @@ export const fetchUsers = async () => {
     return data
 }
 
-export const fetchCreateUser = async (newUser: Omit<User,"id">) => {
+export const fetchUserByEmail = async (email: string): Promise<User | undefined> => {
+    const users = await fetchUsers()
+    return users.find(user => user.email === email)
+}
+
+export const fetchCreateUser = async (newUser: Omit<User,"id">): Promise<User> => {
     const url = `api/users`
     const response = await fetch(url, {
         method: "POST",
