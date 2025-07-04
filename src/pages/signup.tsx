@@ -5,8 +5,10 @@ import Link from "next/link"
 import router from "next/router"
 import { useRef, useState } from "react"
 
+type SignupForm = Omit<User, "id">
+
 export default function Signup() {
-    const [formData, setFormData] = useState<Omit<User, "id">>({name: "", email: "", password: "", is_hunter: false})
+    const [formData, setFormData] = useState<SignupForm>({name: "", email: "", password: "", is_hunter: false})
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<Error | null>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
@@ -21,7 +23,7 @@ export default function Signup() {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setError(null)
         const {name, value} = event.target
-        setFormData((prev: Omit<User,"id">) => {
+        setFormData((prev: SignupForm) => {
             let newData = {
                 ...prev,
                 [name]: value
@@ -39,13 +41,6 @@ export default function Signup() {
             return
         }
         try {
-            const existingUser = await fetchUserByEmail(formData.email)
-            if (existingUser) {
-                setLoading(false)
-                setError(new Error(`A user with that email already exists.`))
-                return
-            }
-            console.log(formData)
             await fetchCreateUser(formData)
             setLoading(false)
             router.push("/")
