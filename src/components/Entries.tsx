@@ -1,6 +1,9 @@
 import { EntriesContext } from "@/context/EntriesContext"
 import { useContext, useState, useEffect } from "react"
-import { EntryCard } from "./EntryCard"
+import styles from '@/styles/Entries.module.css'
+import Link from "next/link"
+import { slugify } from "@/lib/entries"
+import { Entry } from "@/types/entry"
 
 const PLANS_PER_PAGE = 12
 
@@ -27,20 +30,26 @@ export const Entries: React.FC = () => {
     if(entriesContextData.loading) {
         return <p>Loading plans....</p>
     }
+
     if(entriesContextData.error) {
         return <p>Error loading plans: {entriesContextData.error}</p>
     }
 
+    const getTitle = (entry: Entry) => {
+        if (entry) {return (<Link href={`/${slugify(entry.title)}`}>{entry.title}</Link>)}
+        return (<p>Entry not found</p>)
+    }
+
     return (
         <>
-            <div className="entries">
+            <div className={styles.entries}>
                 {
                     entries.map( entry => (
-                            <EntryCard key={entry.id} id={entry.id}></EntryCard>
+                        <div className={styles.entryTitle}>{getTitle(entry)}</div>    
                     ))
                 }   
             </div>
-            <div className="pagination">
+            <div className={styles.pagination}>
                 <button onClick={handlePrevClick}>Prev</button>
                 <span>Page {currentPage} of {totalPages}</span>
                 <button onClick = {handleNextClick}>Next</button>

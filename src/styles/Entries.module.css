@@ -1,0 +1,13 @@
+.entries {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: start;
+    text-align: start;
+}
+
+.pagination {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    text-align: center;
+}
