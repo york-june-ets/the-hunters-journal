@@ -4,7 +4,7 @@ import Link from "next/link"
 import {useContext} from "react"
 
 
-export const EntryCard = ({id}: {id: string}) => {
+export const EntryCard = ({id}: {id: number}) => {
     const entriesContextData = useContext(EntriesContext)
     const entries = entriesContextData.entries
     const entry = entries.find(entry => entry.id === id)

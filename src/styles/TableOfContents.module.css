@@ -16,8 +16,13 @@
 
 .tocTitle {
     margin: 30px 10px 30px 10px;
+    font-family: fantasy;
 }
 
 .entriesContainer {
     margin: 30px 10px 30px 10px;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
 }

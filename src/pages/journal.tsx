@@ -10,10 +10,9 @@ export default function Journal() {
         setOpen(true)
     }
 
-    // const closeJournal = () => {
-    //     setOpen(false)
-    //     setComponent(<JournalCover></JournalCover>)
-    // }
+    const closeJournal = () => {
+        setOpen(false)
+    }
 
     return (
         <div id="book">
@@ -24,7 +23,7 @@ export default function Journal() {
             )}
             {open && (
                 <div className={styles.cover}>
-                    <div className={styles.backCover}></div>
+                    <div className={styles.backCover} onClick={closeJournal}></div>
                     <TableOfContents/>
                 </div>
             )}
