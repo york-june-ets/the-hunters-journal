@@ -50,9 +50,9 @@ export const Entries: React.FC = () => {
                 }   
             </div>
             <div className={styles.pagination}>
-                <button onClick={handlePrevClick}>Prev</button>
+                <button className={styles.paginationButton} onClick={handlePrevClick}>&larr;</button>
                 <span>Page {currentPage} of {totalPages}</span>
-                <button onClick = {handleNextClick}>Next</button>
+                <button className={styles.paginationButton} onClick = {handleNextClick}>&rarr;</button>
             </div>
         </>
     )

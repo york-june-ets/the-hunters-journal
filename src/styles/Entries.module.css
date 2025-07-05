@@ -22,4 +22,11 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     text-align: center;
+    align-items: center;
+}
+
+.paginationButton {
+    all: unset;
+    font-size: 30px;
+    color: rgb(51, 7, 7);
 }
