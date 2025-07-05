@@ -45,7 +45,7 @@ export const Entries: React.FC = () => {
             <div className={styles.entries}>
                 {
                     entries.map( (entry, entryNumber) => (
-                        <div className={styles.entryTitle}>{entryNumber + 1}.&nbsp;{getTitleByEntry(entry)}</div>    
+                        <div className={styles.entryTitle} key={entry.id}>{entryNumber + 1}.&nbsp;{getTitleByEntry(entry)}</div>    
                     ))
                 }   
             </div>

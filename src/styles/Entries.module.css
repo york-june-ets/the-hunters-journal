@@ -1,7 +1,7 @@
 .entries {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: start;
+    justify-content: flex-start;
     text-align: start;
     font-family: cursive;
 }
