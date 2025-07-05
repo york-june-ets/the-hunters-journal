@@ -5,14 +5,14 @@ import Link from "next/link"
 import { slugify } from "@/lib/entries"
 import { Entry } from "@/types/entry"
 
-const PLANS_PER_PAGE = 12
+const ENTRIES_PER_PAGE = 10
 
 export const Entries: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)
     const entriesContextData = useContext(EntriesContext)
     const entries = entriesContextData.entries
 
-    const totalPages = Math.ceil(entries.length / PLANS_PER_PAGE)
+    const totalPages = Math.ceil(entries.length / ENTRIES_PER_PAGE)
 
     const handlePrevClick = () => {
         if(currentPage > 1) {
@@ -28,11 +28,11 @@ export const Entries: React.FC = () => {
     }
 
     if(entriesContextData.loading) {
-        return <p>Loading plans....</p>
+        return <p>Loading entries....</p>
     }
 
     if(entriesContextData.error) {
-        return <p>Error loading plans: {entriesContextData.error}</p>
+        return <p>Error loading entries: {entriesContextData.error}</p>
     }
 
     const getTitleByEntry = (entry: Entry) => {
