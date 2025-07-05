@@ -40,5 +40,16 @@
     flex-flow: column nowrap;
     align-items: center;
     justify-content: start;
-    text-align: start;
+}
+
+.slugTitle {
+    font-family: fantasy;
+    margin: 50px 20px 30px 20px;
+    text-align: center;
+}
+
+.slugBody {
+    font-family: cursive;
+    margin: 0 25px 30px 25px;
+    text-align: justify;
 }

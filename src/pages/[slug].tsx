@@ -64,8 +64,8 @@ export default function EntryPage({entry}: {entry: Entry}) {
             </form> */}
             <div className={styles.commentsPage}>Comments page</div>
             <div className={styles.entryPage}>
-                <h1 id="title">{entry.title}</h1>
-                <p id="body">{entry.body}</p>
+                <h1 className={styles.slugTitle}>{entry.title}</h1>
+                <p className={styles.slugBody}>{entry.body}</p>
             </div>
         </div>
     )

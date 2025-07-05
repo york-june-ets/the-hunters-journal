@@ -1,4 +1,4 @@
-.tableOfContents {
+.tableOfContentsPage {
     width: 500px;
     height: 700px;
     background-image: url('/page-background.avif'); /* Adjust path to your image */
@@ -12,18 +12,19 @@
     flex-flow: column nowrap;
     align-items: center;
     justify-content: start;
-    text-align: start;
 }
 
 .tocTitle {
-    margin: 30px 10px 30px 10px;
     font-family: fantasy;
+    margin: 50px 20px 30px 20px;
+    text-align: center;
 }
 
 .entriesContainer {
-    margin: 30px 10px 30px 10px;
+    margin: 0 20px 30px 20px;
     height: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
+    text-align: start;
 }
