@@ -1,4 +1,4 @@
-.cover {
+.book {
   width: 100%;
   height: 100%;
   position: relative;
@@ -15,8 +15,9 @@
   background-image: url('/journal-cover.jpeg'); /* Adjust path to your image */
   background-size: cover;
   background-position: center;
-  border: 4px solid #3e2c1a;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.8),
+        inset -10px 0 40px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;

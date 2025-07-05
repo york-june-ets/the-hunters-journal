@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { slugify } from "@/lib/entries"
 import { GetStaticPaths, GetStaticPropsContext } from "next"
 import { getEntries, getEntryBySlug } from "./api/entries"
+import styles from '@/styles/[slug].module.css'
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const entries = await getEntries()
@@ -49,9 +50,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
     // }, [entry.id, refresh])
 
     return (
-        <div id="entry">
-            <h1 id="title">{entry.title}</h1>
-            <p id="body">{entry.body}</p>
+        <div className={styles.book}>
             {/* <div id="comments">
                 {
                     comments.map((comment, index) => (
@@ -63,6 +62,11 @@ export default function EntryPage({entry}: {entry: Entry}) {
                 <input placeholder="Add a comment" value={comment} onChange={handleChange}></input>
                 <button type="submit">Post</button>
             </form> */}
+            <div className={styles.commentsPage}>Comments page</div>
+            <div className={styles.entryPage}>
+                <h1 id="title">{entry.title}</h1>
+                <p id="body">{entry.body}</p>
+            </div>
         </div>
     )
 }

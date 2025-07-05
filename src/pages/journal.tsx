@@ -15,14 +15,14 @@ export default function Journal() {
     }
 
     return (
-        <div id="book">
+        <div>
             {!open && (
-                <div className={styles.cover} onClick={openJournal}>
+                <div className={styles.book} onClick={openJournal}>
                     <JournalCover/>
                 </div>
             )}
             {open && (
-                <div className={styles.cover}>
+                <div className={styles.book}>
                     <div className={styles.backCover} onClick={closeJournal}></div>
                     <TableOfContents/>
                 </div>
