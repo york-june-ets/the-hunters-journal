@@ -15,6 +15,12 @@ export const slugify = (title: string) => {
   return title.toLowerCase().replace(/\s+/g, '-')
 }
 
+export const fetchEntrySlugs = async () => {
+    const entries = await fetchEntries()
+    const titles = entries.map((entry: Entry) => slugify(entry.title))
+    return titles
+}
+
 // export const fetchComments = async (entryId: string) => {
 //     const url = `http://localhost:8000/entries/${entryId}`
 //     const response = await fetch(url, {

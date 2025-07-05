@@ -36,7 +36,7 @@ export default function Login() {
         } catch (err) {
             if (err instanceof Error) {setError(err)}
             else {
-                console.error(`Error recieved is not an arror object ${err}`)
+                console.error(`Error recieved is not an error object ${err}`)
                 setError(new Error(`An unknown error occurred`))
             }
             setLoading(false)
