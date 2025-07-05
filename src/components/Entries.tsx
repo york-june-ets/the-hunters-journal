@@ -35,7 +35,7 @@ export const Entries: React.FC = () => {
         return <p>Error loading plans: {entriesContextData.error}</p>
     }
 
-    const getTitle = (entry: Entry) => {
+    const getTitleByEntry = (entry: Entry) => {
         if (entry) {return (<Link href={`/${slugify(entry.title)}`}>{entry.title}</Link>)}
         return (<p>Entry not found</p>)
     }
@@ -44,8 +44,8 @@ export const Entries: React.FC = () => {
         <>
             <div className={styles.entries}>
                 {
-                    entries.map( entry => (
-                        <div className={styles.entryTitle}>{getTitle(entry)}</div>    
+                    entries.map( (entry, entryNumber) => (
+                        <div className={styles.entryTitle}>{entryNumber + 1}.&nbsp;{getTitleByEntry(entry)}</div>    
                     ))
                 }   
             </div>
