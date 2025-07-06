@@ -1,0 +1,33 @@
+.login {
+    background-color: white;
+    width: 500px;
+    height: 400px;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 150px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    padding: 50px;
+}
+
+.loginTitle {
+    margin: 0;
+}
+
+.loginForm {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+    align-items: center;
+}
+
+.emailAndPassword {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.formSubmit {
+    width: 50px;
+}

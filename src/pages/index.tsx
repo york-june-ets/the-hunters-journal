@@ -4,6 +4,7 @@ import { User } from "@/types/user"
 import Link from "next/link"
 import router from "next/router"
 import { useContext, useState } from "react"
+import styles from '@/styles/Login.module.css'
 
 type LoginForm = Omit<User, "id" | "name">
 
@@ -44,14 +45,18 @@ export default function Login() {
     }
 
     return (
-        <div>
-            <h1>Login</h1>
+        <div className={styles.login}>
+            <h1 className={styles.loginTitle}>Login</h1>
             {loading && <p>Loading please wait...</p>}
-            <form onSubmit={handleSubmit}>
-                <label>Email: &nbsp;<input type="email" name="email" onChange={handleChange}></input></label>
-                <label>Password: &nbsp;<input type="password" name="password" onChange={handleChange}></input></label>
-                <label><input type="checkbox" name="is_hunter" onChange={handleChange}></input>I am a hunter</label>
-                <button type="submit">Login</button>
+            <form className={styles.loginForm} onSubmit={handleSubmit}>
+                <div className={styles.emailAndPassword}>
+                    <label className={styles.formLabel}>Email: &nbsp;</label>
+                    <input className={styles.formInput} type="email" name="email" onChange={handleChange}></input>
+                    <label className={styles.formLabel}>Password: &nbsp;</label>
+                    <input className={styles.formInput} type="password" name="password" onChange={handleChange}></input>
+                </div>
+                <label className={styles.formLabel}><input className={styles.formInput} type="checkbox" name="is_hunter" onChange={handleChange}></input>I am a hunter</label>
+                <button  className={styles.formSubmit} type="submit">Login</button>
             </form>
             {error && <p>{error.message}</p>}
             <Link href="/signup">Don't have an account? Sign up!</Link>

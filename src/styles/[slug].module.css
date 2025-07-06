@@ -44,9 +44,11 @@
 
 .slugTitle {
     font-family: fantasy;
-    margin: 50px 40px 30px 40px;
+    box-sizing: border-box;
+    padding: 50px 40px 30px 40px;
     text-align: center;
     width: inherit;
+    margin: 0;
 }
 
 .slugBody {
@@ -54,6 +56,8 @@
     margin: 0 40px 30px 40px;
     text-align: justify;
     flex-grow: 1;
+    overflow: scroll;
+    font-size: 14px;
 
 }
 
@@ -64,7 +68,7 @@
     text-align: center;
     align-items: center;
     width: inherit;
-    padding: 20px 40px 20px 40px;
+    padding: 0 40px 20px 40px;
     box-sizing: border-box;
 }
 
