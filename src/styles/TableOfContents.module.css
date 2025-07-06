@@ -21,10 +21,10 @@
 }
 
 .entriesContainer {
-    margin: 0 20px 30px 20px;
     height: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
     text-align: start;
+    width: inherit;
 }

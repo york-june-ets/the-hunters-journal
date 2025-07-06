@@ -4,6 +4,7 @@
     justify-content: flex-start;
     text-align: start;
     font-family: cursive;
+    margin: 0 40px 30px 40px;
 }
 
 .entryTitle {
@@ -23,6 +24,7 @@
     justify-content: space-between;
     text-align: center;
     align-items: center;
+    margin: 20px 40px 20px 40px;
 }
 
 .paginationButton {

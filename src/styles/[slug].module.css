@@ -44,12 +44,32 @@
 
 .slugTitle {
     font-family: fantasy;
-    margin: 50px 20px 30px 20px;
+    margin: 50px 40px 30px 40px;
     text-align: center;
+    width: inherit;
 }
 
 .slugBody {
     font-family: cursive;
-    margin: 0 25px 30px 25px;
+    margin: 0 40px 30px 40px;
     text-align: justify;
+    flex-grow: 1;
+
+}
+
+.pagination {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    width: inherit;
+    padding: 20px 40px 20px 40px;
+    box-sizing: border-box;
+}
+
+.paginationButton {
+    all: unset;
+    font-size: 30px;
+    color: rgb(51, 7, 7);
 }
