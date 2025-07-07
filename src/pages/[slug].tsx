@@ -5,6 +5,7 @@ import { GetStaticPaths, GetStaticPropsContext } from "next"
 import { getEntries, getEntryBySlug } from "./api/entries"
 import styles from '@/styles/[slug].module.css'
 import router from "next/router"
+import { fetchUserById } from "@/lib/users"
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const entries = await getEntries()
@@ -27,16 +28,23 @@ export default function EntryPage({entry}: {entry: Entry}) {
     const [currentPage, setCurrentPage] = useState<number>(1)
     const totalPages = Math.ceil(paths.length)
     const [paginationError, setPaginationError] = useState<Error | null>(null)
+    const [author, setAuthor] = useState<string>("Unknown")
+    console.log(entry)
 
     useEffect(() => {
-        const getCurrentState = async () => {
+        const getCurrentState = async (): Promise<void> => {
             const paths = await fetchEntrySlugs()
             setPaths(paths)
             const index = paths.indexOf(currentPath)
             setCurrentPathIndex(index)
             setCurrentPage(index+1)
         }
+        const getAuthor = async (): Promise<void> => {
+            const user = await fetchUserById(entry.user_id)
+            if (user && user.name) {setAuthor(user.name)}
+        }
         getCurrentState()
+        getAuthor()
     }, [])
 
     const handlePrevClick = () => {
@@ -109,6 +117,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
             <div className={styles.commentsPage}>Comments page</div>
             <div className={styles.entryPage}>
                 <h1 className={styles.slugTitle}>{entry.title}</h1>
+                <p className={styles.author}>- {author}</p>
                 <p className={styles.slugBody}>{entry.body}</p>
                     {!paginationError && 
                         <div className={styles.pagination}>

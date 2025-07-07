@@ -45,10 +45,14 @@
 .slugTitle {
     font-family: fantasy;
     box-sizing: border-box;
-    padding: 50px 40px 30px 40px;
+    padding: 50px 40px 0 40px;
     text-align: center;
     width: inherit;
     margin: 0;
+}
+
+.author {
+    margin: 0 0 25px 0;
 }
 
 .slugBody {

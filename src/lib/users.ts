@@ -17,6 +17,11 @@ export const fetchUserByEmail = async (email: string): Promise<User | undefined>
     return users.find(user => user.email === email)
 }
 
+export const fetchUserById = async (id: number): Promise<User | undefined> => {
+    const users = await fetchUsers()
+    return users.find(user => user.id === id)
+}
+
 export const authenticateUser = async (user: {email: string, password: string, is_hunter: boolean}) => {
     const existingUser = await fetchUserByEmail(user.email)
     if (!existingUser) {

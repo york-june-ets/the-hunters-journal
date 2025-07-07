@@ -3,4 +3,5 @@ export type Entry = {
     title: string
     body: string
     comments: string[]
+    user_id: number
 }
