@@ -32,12 +32,12 @@ export const fetchCommenter = async (comment: Comment): Promise<string | "Unknow
 export const fetchPostComment = async (newComment: Omit<Comment, "id">) => {
     const url = `/api/comments`
     const response = await fetch(url, {
-        method: "PUT",
+        method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newComment)
     })
     if (!response.ok) {
-        throw new Error(`Error posting comment: ${newComment}`)
+        throw new Error(`Error posting comment: ${newComment.message}`)
     }
     return await response.json()
 }

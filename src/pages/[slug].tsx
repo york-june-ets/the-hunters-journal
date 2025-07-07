@@ -10,6 +10,7 @@ import { fetchCommentsByEntryId, fetchPostComment } from "@/lib/comments"
 import { CommentDetail } from "@/components/CommentDetail"
 import { Comment } from "@/types/comment"
 import { UserContext } from "@/context/UserContext"
+import { User } from "@/types/user"
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const entries = await getEntries()
@@ -35,14 +36,28 @@ export default function EntryPage({entry}: {entry: Entry}) {
     const [author, setAuthor] = useState<string>("Unknown")
     const [comments, setComments] = useState<Comment[]>([])
     const [refresh, setRefresh] = useState<boolean>(false)
-    const currentUser = useContext(UserContext)?.user
+    const user = useContext(UserContext)?.user
+    console.log(entry)
+    console.log(entry.id)
     const [newComment, setNewComment] = useState<Omit<Comment, "id">>(
         {
+            user_id: user?.id!,
             entry_id: entry.id,
-            user_id: currentUser?.id!,
             message: ""
         }
     )
+
+    useEffect(() => {
+        if (user) {
+            setNewComment(
+                {
+                    user_id: user?.id!,
+                    entry_id: entry.id,
+                    message: ""
+                }
+            )
+        }
+    }, [user])
 
     useEffect(() => {
         const getCurrentState = async (): Promise<void> => {
@@ -80,6 +95,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
         }
         return
     }
+
     const handleNextClick = () => {
         if(currentPage < totalPages && currentPathIndex < paths.length - 1) {
             setCurrentPage(currentPage+1)
@@ -89,14 +105,6 @@ export default function EntryPage({entry}: {entry: Entry}) {
         return
     }
 
-    // if(entriesCtx.loading) {
-    //     return <p>Loading entry....</p>
-    // }
-
-    // if(entriesCtx.error) {
-    //     return <p>Error loading entry: {entriesCtx.error}</p>
-    // }
-
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         setNewComment((prev: Omit<Comment, "id">) => {
             let updatedComment = {
@@ -105,6 +113,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
             }
             return updatedComment
         })
+        console.log(newComment)
     }
 
     const handleSubmit = async (event:React.FormEvent) => {
@@ -116,14 +125,14 @@ export default function EntryPage({entry}: {entry: Entry}) {
                 else {setRefresh(true)} //refetch comments when new comment is posted
                 setNewComment(
                     {
+                        user_id: user?.id!,
                         entry_id: entry.id,
-                        user_id: currentUser?.id!,
                         message: ""
                     }
                 )
             }
         } catch (error) {
-            console.error(`Failed to post comment: ${newComment}`)
+            console.error(`Failed to post comment: ${newComment.message}`)
         }
     }
 
