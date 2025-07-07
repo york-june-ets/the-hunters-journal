@@ -45,21 +45,19 @@ export default function Login() {
     }
 
     return (
-        <div className={styles.login}>
-            <h1 className={styles.loginTitle}>Login</h1>
-            {loading && <p>Loading please wait...</p>}
-            <form className={styles.loginForm} onSubmit={handleSubmit}>
-                <div className={styles.emailAndPassword}>
-                    <label className={styles.formLabel}>Email: &nbsp;</label>
-                    <input className={styles.formInput} type="email" name="email" onChange={handleChange}></input>
-                    <label className={styles.formLabel}>Password: &nbsp;</label>
-                    <input className={styles.formInput} type="password" name="password" onChange={handleChange}></input>
-                </div>
-                <label className={styles.formLabel}><input className={styles.formInput} type="checkbox" name="is_hunter" onChange={handleChange}></input>I am a hunter</label>
-                <button  className={styles.formSubmit} type="submit">Login</button>
-            </form>
-            {error && <p>{error.message}</p>}
-            <Link href="/signup">Don't have an account? Sign up!</Link>
+        <div className={styles.loginBackground}>
+            <div className={styles.login}>
+                <h1 className={styles.loginTitle}>Login</h1>
+                {loading && <p>Loading please wait...</p>}
+                <form className={styles.loginForm} onSubmit={handleSubmit}>
+                    <input className={styles.formInput} type="email" name="email" placeholder="Email" onChange={handleChange}></input>
+                    <input className={styles.formInput} type="password" name="password" placeholder="Password" onChange={handleChange}></input>
+                    <label className={styles.hunterLabel}><input type="checkbox" name="is_hunter" onChange={handleChange}></input>I am a hunter</label>
+                    <button className={styles.formSubmit} type="submit">Login</button>
+                </form>
+                {error && <p>{error.message}</p>}
+                <Link href="/signup">Don't have an account? Sign up!</Link>
+            </div>
         </div>
     )
 }

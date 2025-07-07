@@ -1,33 +1,51 @@
-.login {
-    background-color: white;
-    width: 500px;
-    height: 400px;
+.loginBackground {
     text-align: center;
-    box-sizing: border-box;
-    margin: 150px;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    padding: 50px;
+    margin: 100px;
+    width: 600px;
+    height: 600px;
+    background-image: url('/form-background.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.login {
+    padding: 100px 125px 70px 125px;
 }
 
 .loginTitle {
+    font-size: 70px;
+    font-family: cursive;
     margin: 0;
+    color:rgb(60, 27, 27)
 }
 
 .loginForm {
     display: flex;
     flex-flow: column nowrap;
-    gap: 20px;
-    align-items: center;
+    text-align: start;
+    padding: 20px 0 40px 0;
+
 }
 
-.emailAndPassword {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+.formInput {
+    margin-top: 20px;
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid #000;
+    outline: none;
+    font-family: cursive;
+    background: transparent;
+}
+
+.hunterLabel {
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 
 .formSubmit {
-    width: 50px;
+    font-size: 18px;
+    background-color: rgba(133, 78, 2, 0.508);
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    padding: 5px 0 5px 0;
 }
