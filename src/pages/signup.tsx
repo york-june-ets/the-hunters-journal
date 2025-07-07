@@ -1,9 +1,9 @@
-import { UserContext } from "@/context/UserContext"
 import { fetchCreateUser, fetchUserByEmail } from "@/lib/users"
 import { User } from "@/types/user"
 import Link from "next/link"
 import router from "next/router"
 import { useRef, useState } from "react"
+import styles from '@/styles/Signup.module.css'
 
 type SignupForm = Omit<User, "id">
 
@@ -55,18 +55,20 @@ export default function Signup() {
     }
 
     return (
-        <div>
-            <h1>Signup</h1>
-            {loading && <p>Loading please wait...</p>}
-            <form onSubmit={handleSubmit}>
-                <label>Name: &nbsp;<input type="text" name="name" value={formData.name} onChange={handleChange} required></input></label>
-                <label>Email: &nbsp;<input type="email" name="email" value={formData.email} onChange={handleChange} required></input></label>
-                <label>Password: &nbsp;<input type="password" name="password" value={formData.password} onChange={handleChange} minLength={8} required></input></label>
-                <label>ConfirmPassword: &nbsp;<input type="password" ref={passwordRef} minLength={8} required></input></label>
-                <button type="submit">Register</button>
-            </form>
-            {error && <p>{error.message}</p>}
-            <Link href="/">Already have an account? Log in.</Link>
+        <div className={styles.signupBackground}>
+            <div className={styles.signup}>
+                <h1 className={styles.signupTitle}>Signup</h1>
+                {loading && <p>Loading please wait...</p>}
+                <form className={styles.signupForm} onSubmit={handleSubmit}>
+                    <input className={styles.formInput} type="text" name="name" value={formData.name} placeholder="Name" onChange={handleChange} required></input>
+                    <input className={styles.formInput} type="email" name="email" value={formData.email} placeholder="Email" onChange={handleChange} required></input>
+                    <input className={styles.formInput} type="password" name="password" value={formData.password} placeholder="Password" onChange={handleChange} minLength={8} required></input>
+                    <input className={styles.formInput} type="password" placeholder="Confirm Password" ref={passwordRef} minLength={8} required></input>
+                    <button className={styles.formSubmit} type="submit">Register</button>
+                </form>
+                {error && <p>{error.message}</p>}
+                <Link href="/">Already have an account? Log in.</Link>
+            </div>
         </div>
     )
 }

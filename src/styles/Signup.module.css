@@ -1,0 +1,46 @@
+.signupBackground {
+    text-align: center;
+    margin: 100px;
+    width: 600px;
+    height: 600px;
+    background-image: url('/form-background.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.signup {
+    padding: 100px 125px 70px 125px;
+}
+
+.signupTitle {
+    font-size: 70px;
+    font-family: cursive;
+    margin: 0;
+    color:rgb(60, 27, 27)
+}
+
+.signupForm {
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: start;
+    padding: 0 0 10px 0;
+}
+
+.formInput {
+    margin-bottom: 20px;
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid #000;
+    outline: none;
+    font-family: cursive;
+    background: transparent;
+}
+
+.formSubmit {
+    margin-top: 20px;
+    font-size: 18px;
+    background-color: rgba(133, 78, 2, 0.508);
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    padding: 5px 0 5px 0;
+}
