@@ -29,19 +29,15 @@ export const fetchCommenter = async (comment: Comment): Promise<string | "Unknow
     else {return "Unknown"}
 }
 
-// export const postComment = async (entry: Entry, comment: string): Promise<string> => {
-//     const updatedEntry = {
-//         ...entry,
-//         comments: [...entry.comments, comment]
-//     }
-//     const url = `http://localhost:8000/entries/${entry.id}`
-//     const response = await fetch(url, {
-//         method: "PUT",
-//         headers: {'Content-Type': 'application/json'},
-//         body: JSON.stringify(updatedEntry)
-//     })
-//     if (!response.ok) {
-//         throw new Error(`Error posting comment`)
-//     }
-//     return await response.json()
-// }
+export const fetchPostComment = async (newComment: Omit<Comment, "id">) => {
+    const url = `/api/comments`
+    const response = await fetch(url, {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newComment)
+    })
+    if (!response.ok) {
+        throw new Error(`Error posting comment: ${newComment}`)
+    }
+    return await response.json()
+}

@@ -1,14 +1,15 @@
 import { Entry } from "@/types/entry"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { fetchEntrySlugs, slugify } from "@/lib/entries"
 import { GetStaticPaths, GetStaticPropsContext } from "next"
 import { getEntries, getEntryBySlug } from "./api/entries"
 import styles from '@/styles/[slug].module.css'
 import router from "next/router"
 import { fetchUserById } from "@/lib/users"
-import { fetchCommentsByEntryId } from "@/lib/comments"
+import { fetchCommentsByEntryId, fetchPostComment } from "@/lib/comments"
 import { CommentDetail } from "@/components/CommentDetail"
 import { Comment } from "@/types/comment"
+import { UserContext } from "@/context/UserContext"
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const entries = await getEntries()
@@ -33,6 +34,15 @@ export default function EntryPage({entry}: {entry: Entry}) {
     const [paginationError, setPaginationError] = useState<Error | null>(null)
     const [author, setAuthor] = useState<string>("Unknown")
     const [comments, setComments] = useState<Comment[]>([])
+    const [refresh, setRefresh] = useState<boolean>(false)
+    const currentUser = useContext(UserContext)?.user
+    const [newComment, setNewComment] = useState<Omit<Comment, "id">>(
+        {
+            entry_id: entry.id,
+            user_id: currentUser?.id!,
+            message: ""
+        }
+    )
 
     useEffect(() => {
         const getCurrentState = async (): Promise<void> => {
@@ -53,14 +63,14 @@ export default function EntryPage({entry}: {entry: Entry}) {
         getCurrentState()
         getAuthor()
         getComments()
-    }, [])
+    }, [entry.id])
 
     useEffect(() => {
         const interval = setInterval(async () => {
             setComments(await fetchCommentsByEntryId(entry.id))
         }, 30000)
         return () => clearInterval(interval)
-    }, [entry.id])
+    }, [entry.id, refresh])
 
     const handlePrevClick = () => {
         if(currentPage > 1 && currentPathIndex > 0) {
@@ -87,39 +97,52 @@ export default function EntryPage({entry}: {entry: Entry}) {
     //     return <p>Error loading entry: {entriesCtx.error}</p>
     // }
 
-    // const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-    //     setComment(event.target.value)
-    // }
+    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+        setNewComment((prev: Omit<Comment, "id">) => {
+            let updatedComment = {
+                ...prev,
+                message: event.target.value
+            }
+            return updatedComment
+        })
+    }
 
-    // const handleSubmit = async (event:React.FormEvent) => {
-    //     event.preventDefault()
-    //     try {
-    //         const success = await postComment(entry, comment)
-    //         if (success) {
-    //             setRefresh(true) //refetch comments when new comment is posted
-    //             setComment("")
-    //         }
-    //     } catch (error) {
-    //         console.error(`Failed to post comment: ${comment}`)
-    //     }
-    // }
+    const handleSubmit = async (event:React.FormEvent) => {
+        event.preventDefault()
+        try {
+            const success = await fetchPostComment(newComment)
+            if (success) {
+                if (refresh) {setRefresh(false)}
+                else {setRefresh(true)} //refetch comments when new comment is posted
+                setNewComment(
+                    {
+                        entry_id: entry.id,
+                        user_id: currentUser?.id!,
+                        message: ""
+                    }
+                )
+            }
+        } catch (error) {
+            console.error(`Failed to post comment: ${newComment}`)
+        }
+    }
 
     return (
         <div className={styles.book}>
-            {/* <form onSubmit={handleSubmit}>
-                <input placeholder="Add a comment" value={comment} onChange={handleChange}></input>
-                <button type="submit">Post</button>
-            </form> */}
             <div className={styles.commentsPage}>
                 <div id="comments">
-                {
-                    comments.map((comment: Comment) => (
-                        <div key={comment.id}>
-                            <CommentDetail comment={comment}></CommentDetail>
-                        </div>
-                    ))
-                } 
-            </div>
+                    {
+                        comments.map((comment: Comment) => (
+                            <div key={comment.id}>
+                                <CommentDetail comment={comment}></CommentDetail>
+                            </div>
+                        ))
+                    } 
+                </div>
+                    <form onSubmit={handleSubmit}>
+                    <input placeholder="Add a comment" value={newComment.message} onChange={handleChange}></input>
+                    <button type="submit">Post</button>
+                </form>
             </div>
             <div className={styles.entryPage}>
                 <h1 className={styles.slugTitle}>{entry.title}</h1>

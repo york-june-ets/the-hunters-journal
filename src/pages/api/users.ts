@@ -7,7 +7,7 @@ export const getUsers = async () => {
     return rows
 }
 
-export const createUser = async (user: Omit<User, 'id'>): Promise<User> => {
+const createUser = async (user: Omit<User, 'id'>): Promise<User> => {
     const {rows} = await query(
         'INSERT into users (name, email, password, is_hunter) VALUES ($1, $2, $3, $4)',
         [user.name, user.email, user.password, user.is_hunter]
