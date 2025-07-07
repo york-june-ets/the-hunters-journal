@@ -6,6 +6,9 @@ import { getEntries, getEntryBySlug } from "./api/entries"
 import styles from '@/styles/[slug].module.css'
 import router from "next/router"
 import { fetchUserById } from "@/lib/users"
+import { fetchCommentsByEntryId } from "@/lib/comments"
+import { CommentDetail } from "@/components/CommentDetail"
+import { Comment } from "@/types/comment"
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const entries = await getEntries()
@@ -29,7 +32,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
     const totalPages = Math.ceil(paths.length)
     const [paginationError, setPaginationError] = useState<Error | null>(null)
     const [author, setAuthor] = useState<string>("Unknown")
-    console.log(entry)
+    const [comments, setComments] = useState<Comment[]>([])
 
     useEffect(() => {
         const getCurrentState = async (): Promise<void> => {
@@ -43,9 +46,21 @@ export default function EntryPage({entry}: {entry: Entry}) {
             const user = await fetchUserById(entry.user_id)
             if (user && user.name) {setAuthor(user.name)}
         }
+        const getComments = async (): Promise<void> => {
+            const comments = await fetchCommentsByEntryId(entry.id)
+            setComments(comments)
+        }
         getCurrentState()
         getAuthor()
+        getComments()
     }, [])
+
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            setComments(await fetchCommentsByEntryId(entry.id))
+        }, 30000)
+        return () => clearInterval(interval)
+    }, [entry.id])
 
     const handlePrevClick = () => {
         if(currentPage > 1 && currentPathIndex > 0) {
@@ -72,10 +87,6 @@ export default function EntryPage({entry}: {entry: Entry}) {
     //     return <p>Error loading entry: {entriesCtx.error}</p>
     // }
 
-    // const [comment, setComment] = useState<string>("")
-    // const [comments, setComments] = useState<string[]>(entry.comments)
-    // const [refresh, setRefresh] = useState<boolean>(false)
-
     // const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     //     setComment(event.target.value)
     // }
@@ -93,28 +104,23 @@ export default function EntryPage({entry}: {entry: Entry}) {
     //     }
     // }
 
-    // useEffect(() => {
-    //     const interval = setInterval(async () => {
-    //         setComments(await fetchComments(entry.id))
-    //     }, 5000)
-    //     setRefresh(false)
-    //     return () => clearInterval(interval)
-    // }, [entry.id, refresh])
-
     return (
         <div className={styles.book}>
-            {/* <div id="comments">
-                {
-                    comments.map((comment, index) => (
-                            <p key={index} id="comment">{comment}</p>
-                    ))
-                } 
-            </div>
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}>
                 <input placeholder="Add a comment" value={comment} onChange={handleChange}></input>
                 <button type="submit">Post</button>
             </form> */}
-            <div className={styles.commentsPage}>Comments page</div>
+            <div className={styles.commentsPage}>
+                <div id="comments">
+                {
+                    comments.map((comment: Comment) => (
+                        <div key={comment.id}>
+                            <CommentDetail comment={comment}></CommentDetail>
+                        </div>
+                    ))
+                } 
+            </div>
+            </div>
             <div className={styles.entryPage}>
                 <h1 className={styles.slugTitle}>{entry.title}</h1>
                 <p className={styles.author}>- {author}</p>
