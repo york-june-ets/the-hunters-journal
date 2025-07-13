@@ -25,10 +25,12 @@ export const fetchUserById = async (id: number): Promise<Omit<User, "password"> 
 
 }
 
-export const authenticateUser = async (user: {email: string, password: string, is_hunter: boolean}): Promise<Omit<User, "password"> | undefined> => {
-    const url = `http://localhost8080/auth/login?email=${user.email}&password=${user.password}&is_hunter=${user.is_hunter}`
+export const authenticateUser = async (loginData: Omit<User, "id" | "name">): Promise<Omit<User, "password"> | undefined> => {
+    const url = `http://localhost8080/auth/login`
     const response = await fetch(url, {
-        method: "GET"
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({loginData})
     })
     if (response.status === 404) {throw new Error(`Invalid email`)}
     if (response.status === 401) {throw new Error(`Invalid password`)}
@@ -38,12 +40,12 @@ export const authenticateUser = async (user: {email: string, password: string, i
     return data
 }
 
-export const fetchCreateUser = async (newUser: Omit<User,"id">): Promise<Omit<User, "password"> | undefined> => {
+export const fetchCreateUser = async (signupData: Omit<User,"id">): Promise<Omit<User, "password"> | undefined> => {
     const url = `http://localhost:8080/api/users`
     const response = await fetch(url, {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(newUser)
+        body: JSON.stringify(signupData)
     })
     if (!response.ok) {
         throw new Error(`Failed to create user`)
