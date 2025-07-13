@@ -2,7 +2,7 @@ version: "3.8"
 services:
   db:
     image: postgres:latest
-    container_name: postgres-practice
+    container_name: thj-postgres-db-container
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
@@ -10,3 +10,4 @@ services:
       POSTGRES_DB: the-hunters-journal
     ports:
       - "5432:5432"
+  
