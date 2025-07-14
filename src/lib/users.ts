@@ -30,7 +30,7 @@ export const authenticateUser = async (loginData: Omit<User, "id" | "name">): Pr
     const response = await fetch(url, {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({loginData})
+        body: JSON.stringify(loginData)
     })
     if (response.status === 404) {throw new Error(`Invalid email`)}
     if (response.status === 401) {throw new Error(`Invalid password`)}
