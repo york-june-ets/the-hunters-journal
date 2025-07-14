@@ -1,7 +1,8 @@
 import { Entry } from "@/types/entry"
 
 export const fetchEntries = async () => {
-    const url = `/api/entries`
+    // const url = `/api/entries`
+    const url = `http://localhost:8080/api/entries`
     const response = await fetch(url, {
         method: "GET"
     })

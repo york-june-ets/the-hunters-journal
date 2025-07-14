@@ -2,7 +2,8 @@ import { Comment } from "@/types/comment"
 import { fetchUserById } from "./users"
 
 export const fetchComments = async () => {
-    const url = `/api/comments`
+    // const url = `/api/comments`
+    const url = `http://localhost:8080/api/comments`
     const response = await fetch(url, {
         method: "GET"
     })
@@ -13,7 +14,8 @@ export const fetchComments = async () => {
 }
 
 export const fetchCommentsByEntryId = async (entryId: number) => {
-    const url = `/api/comments?entry_id=${entryId}`
+    // const url = `/api/comments?entry_id=${entryId}`
+    const url = `http://localhost:8080/api/comments/${entryId}`
     const response = await fetch(url, {
         method: "GET"
     })
@@ -30,7 +32,8 @@ export const fetchCommenter = async (comment: Comment): Promise<string | "Unknow
 }
 
 export const fetchPostComment = async (newComment: Omit<Comment, "id">) => {
-    const url = `/api/comments`
+    // const url = `/api/comments`
+    const url = `http://localhost:8080/api/comments`
     const response = await fetch(url, {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
