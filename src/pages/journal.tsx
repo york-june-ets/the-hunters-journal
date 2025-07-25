@@ -8,7 +8,12 @@ import { UserContext } from "@/context/UserContext"
 export default function Journal() {
     const [open, setOpen] = useState<boolean>(false)
     const router = useRouter()
-    const {logout} = useContext(UserContext)
+    const {token, user, loading, logout} = useContext(UserContext)
+
+    //redirect to home if no local stored customer info
+    useEffect(() => {
+        if (!loading && (!token || !user)) {router.push('/')}
+    }, [token, user, loading])
 
     useEffect(() => {
         if (router?.query?.state === 'open') {
@@ -23,6 +28,9 @@ export default function Journal() {
     const closeJournal = () => {
         setOpen(false)
     }
+    
+    // show nothing while still loading/no local stored customer info
+    if (loading || (!token || !user)) {return null}
 
     return (
         <div>

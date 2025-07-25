@@ -36,9 +36,8 @@ export default function EntryPage({entry}: {entry: Entry}) {
     const [author, setAuthor] = useState<string>("Unknown")
     const [comments, setComments] = useState<Comment[]>([])
     const [refresh, setRefresh] = useState<boolean>(false)
-    const user = useContext(UserContext)?.user
+    const {token, user, loading, logout} = useContext(UserContext)
     const router = useRouter()
-    const {logout} = useContext(UserContext)
     const [newComment, setNewComment] = useState<Omit<Comment, "id">>(
         {
             user_id: user?.id!,
@@ -46,6 +45,10 @@ export default function EntryPage({entry}: {entry: Entry}) {
             message: ""
         }
     )
+    //redirect to home if no local stored customer info
+    useEffect(() => {
+        if (!loading && (!token || !user)) {router.push('/')}
+    }, [token, user, loading])
 
     useEffect(() => {
         if (user) {
@@ -142,6 +145,8 @@ export default function EntryPage({entry}: {entry: Entry}) {
             query: { state: 'open' }
         })
     }
+    // show nothing while still loading/no local stored customer info
+    if (loading || (!token || !user)) {return null}
 
     return (
         <div className={styles.book}>

@@ -48,7 +48,7 @@ export const UserProvider: React.FC<{children: ReactNode}> = ({children}) => {
   const logout = () => {
     setToken(null)
     setUser(null)
-    window.localStorage.removeItem('authToken')
+    window.localStorage.removeItem('userToken')
     window.localStorage.removeItem('user')
     router.push('/')
   }
