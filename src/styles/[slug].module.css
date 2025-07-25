@@ -49,10 +49,23 @@
 
 .commentInput {
     width: 330px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid #000;
+    outline: none;
+    font-family: cursive;
+    background: transparent;
 }
 
 .commentPost {
     width: 70px;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    background-color: rgba(251, 196, 85, 0.191);
 }
 
 .entryPage {

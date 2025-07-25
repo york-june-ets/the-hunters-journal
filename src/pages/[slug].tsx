@@ -151,7 +151,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
                 </div>
                     <form className={styles.form}onSubmit={handleSubmit}>
                     <input className={styles.commentInput} placeholder="Add a comment" value={newComment.message} onChange={handleChange}></input>
-                    <button className={styles.commentPost} type="submit">Post</button>
+                    <button className={styles.commentPost} type="submit">Submit</button>
                 </form>
             </div>
             <div className={styles.entryPage}>
