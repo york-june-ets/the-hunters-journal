@@ -2,17 +2,20 @@ import { UserContext } from "@/context/UserContext"
 import { authenticateUser, fetchUserByEmail } from "@/lib/users"
 import { User } from "@/types/user"
 import Link from "next/link"
-import router from "next/router"
 import { useContext, useState } from "react"
 import styles from '@/styles/Login.module.css'
 
-type LoginForm = Omit<User, "id" | "name">
+type LoginForm = {
+    email: string
+    password: string
+    is_hunter: boolean
+}
 
 export default function Login() {
     const [formData, setFormData] = useState<LoginForm>({email: "", password: "", is_hunter: false})
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<Error | null>(null)
-    const userCtx = useContext(UserContext)
+    const {login} = useContext(UserContext)
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setError(null)
@@ -32,8 +35,9 @@ export default function Login() {
         try {
             const user = await authenticateUser(formData)
             setLoading(false)
-            userCtx?.setUser(user)
-            router.push('/journal')
+            if (user) {
+                login(crypto.randomUUID(), user)
+            }
         } catch (err) {
             if (err instanceof Error) {setError(err)}
             else {

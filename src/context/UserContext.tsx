@@ -1,33 +1,60 @@
+'use client'
+
 import { User } from "@/types/user"
+import { useRouter } from "next/router"
 import { createContext, ReactNode, useEffect, useState } from "react"
 
-interface UserContextType {
-    user: Omit<User,"password"> | null,
-    setUser: (u: Omit<User,"password"> | null) => void
+interface UserContextValue {
+    user: User | null
+    token: string | null
+    login: (userToken: string | null, userInfo: User| null) => void
+    logout: () => void
+    loading: boolean
 }
 
-export const UserContext = createContext<UserContextType | null>(null)
+export const UserContext = createContext<UserContextValue>({
+    user: null,
+    token: null,
+    login: () => {},
+    logout: () => {},
+    loading: false
+})
 
-export function UserProvider({children}: {children: ReactNode}) {
-    const [user, setUser] = useState<Omit<User,"password"> | null>(null)
+export const UserProvider: React.FC<{children: ReactNode}> = ({children}) => {
+    const [token, setToken] = useState<string | null>(null)
+    const [user, setUser] = useState<User | null>(null)
+    const [loading, setLoading] = useState<boolean>(true)
+    const router = useRouter()
+
     useEffect(() => {
-        let u = localStorage.getItem("user")
-        if (u !== null) {
-            setUser(JSON.parse(u))
+        const existingToken = localStorage.getItem('userToken')
+        const existingUser = localStorage.getItem('user')
+
+        if (existingToken) {setToken(existingToken)}
+        if (existingUser) {setUser(JSON.parse(existingUser))}
+        setLoading(false)
+    },[])
+
+    const login = (userToken: string | null, userInfo: User | null) => {
+        if (userToken && userInfo) {
+            setToken(userToken)
+            setUser(userInfo)
+            window.localStorage.setItem('userToken', userToken)
+            window.localStorage.setItem('user', JSON.stringify(userInfo))
+            router.push('/journal')
         }
-    }, [])
+    }
+
+  const logout = () => {
+    setToken(null)
+    setUser(null)
+    window.localStorage.removeItem('authToken')
+    window.localStorage.removeItem('user')
+    router.push('/')
+  }
+
     return (
-        <UserContext.Provider value = {
-            {
-                user: user,
-                setUser:(u: Omit<User,"password"> | null) => {
-                    if (u !== null) {
-                        localStorage.setItem('user', JSON.stringify(u))
-                    }
-                    setUser(u)
-                }
-            }
-        }>
+        <UserContext.Provider value={{user, token, login, logout, loading}}>
             {children}
         </UserContext.Provider>
     )

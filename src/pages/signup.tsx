@@ -5,7 +5,12 @@ import router from "next/router"
 import { useRef, useState } from "react"
 import styles from '@/styles/Signup.module.css'
 
-type SignupForm = Omit<User, "id">
+type SignupForm = {
+    name: string
+    email: string
+    password: string
+    is_hunter: boolean
+}
 
 export default function Signup() {
     const [formData, setFormData] = useState<SignupForm>({name: "", email: "", password: "", is_hunter: false})

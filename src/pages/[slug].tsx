@@ -38,6 +38,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
     const [refresh, setRefresh] = useState<boolean>(false)
     const user = useContext(UserContext)?.user
     const router = useRouter()
+    const {logout} = useContext(UserContext)
     const [newComment, setNewComment] = useState<Omit<Comment, "id">>(
         {
             user_id: user?.id!,
@@ -144,6 +145,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
 
     return (
         <div className={styles.book}>
+            <button className="logout" onClick={logout}>Logout</button>
             <div className={styles.commentsPage}>
                 <button className={styles.backButton} onClick={backToTableOfContents}>&larr;</button>
                 <img className={styles.img} src={entry.img}></img>
