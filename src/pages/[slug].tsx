@@ -1,8 +1,8 @@
 import { Entry } from "@/types/entry"
 import { useContext, useEffect, useState } from "react"
-import { fetchEntrySlugs, slugify } from "@/lib/entries"
+import { fetchEntries, fetchEntryBySlug, fetchEntrySlugs, slugify } from "@/lib/entries"
 import { GetStaticPaths, GetStaticPropsContext } from "next"
-import { getEntries, getEntryBySlug } from "./api/entries"
+// import { getEntries, getEntryBySlug } from "./api/entries"
 import styles from '@/styles/[slug].module.css'
 import router from "next/router"
 import { fetchUserById } from "@/lib/users"
@@ -13,7 +13,7 @@ import { UserContext } from "@/context/UserContext"
 import { User } from "@/types/user"
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const entries = await getEntries()
+    const entries = await fetchEntries()
     const paths = entries.map((entry: { title: string }) => ({
         params: {slug: slugify(entry.title)}
     }))
@@ -22,7 +22,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps = async ({params}: GetStaticPropsContext) => {
     if (typeof params?.slug !== "string") {return}
-    const entry = await getEntryBySlug(params?.slug)
+    const entry = await fetchEntryBySlug(params?.slug)
     return { props: {entry}}
 }
 

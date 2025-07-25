@@ -14,7 +14,7 @@ export const fetchUsers = async (): Promise<Omit<User, "password">[]> => {
 }
 
 export const fetchUserById = async (id: number): Promise<Omit<User, "password"> | undefined> => {
-    const url = `http://localhost:8080/users/${id}`
+    const url = `http://localhost:8080/api/users/${id}`
     const response = await fetch(url, {
         method: "GET"
     })
@@ -26,7 +26,7 @@ export const fetchUserById = async (id: number): Promise<Omit<User, "password"> 
 }
 
 export const authenticateUser = async (loginData: Omit<User, "id" | "name">): Promise<Omit<User, "password"> | undefined> => {
-    const url = `http://localhost:8080/auth/login`
+    const url = `http://localhost:8080/api/auth/login`
     const response = await fetch(url, {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
