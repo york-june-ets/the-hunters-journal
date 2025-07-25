@@ -139,8 +139,8 @@ export default function EntryPage({entry}: {entry: Entry}) {
     return (
         <div className={styles.book}>
             <div className={styles.commentsPage}>
-                <img src={entry.img}></img>
-                <div id="comments">
+                <img className={styles.img} src={entry.img}></img>
+                <div className={styles.comments}>
                     {
                         comments.map((comment: Comment) => (
                             <div key={comment.id}>
@@ -149,9 +149,9 @@ export default function EntryPage({entry}: {entry: Entry}) {
                         ))
                     } 
                 </div>
-                    <form onSubmit={handleSubmit}>
-                    <input placeholder="Add a comment" value={newComment.message} onChange={handleChange}></input>
-                    <button type="submit">Post</button>
+                    <form className={styles.form}onSubmit={handleSubmit}>
+                    <input className={styles.commentInput} placeholder="Add a comment" value={newComment.message} onChange={handleChange}></input>
+                    <button className={styles.commentPost} type="submit">Post</button>
                 </form>
             </div>
             <div className={styles.entryPage}>

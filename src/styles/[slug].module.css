@@ -26,6 +26,35 @@
     text-align: start;
 }
 
+.img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    padding-top: 40px;
+}
+
+.comments {
+    width: 400px;
+    height: 300px;
+    overflow: scroll;
+}
+
+.form {
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.commentInput {
+    width: 330px;
+}
+
+.commentPost {
+    width: 70px;
+}
+
 .entryPage {
     width: 500px;
     height: 700px;
