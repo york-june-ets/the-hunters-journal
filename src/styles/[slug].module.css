@@ -123,3 +123,11 @@
     font-size: 30px;
     color: rgb(51, 7, 7);
 }
+
+.backButton {
+    all: unset;
+    font-size: 30px;
+    color: rgb(51, 7, 7);
+    align-self: start;
+    margin-left: 50px;
+}

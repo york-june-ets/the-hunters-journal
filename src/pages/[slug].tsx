@@ -4,7 +4,7 @@ import { fetchEntries, fetchEntryBySlug, fetchEntrySlugs, slugify } from "@/lib/
 import { GetStaticPaths, GetStaticPropsContext } from "next"
 // import { getEntries, getEntryBySlug } from "./api/entries"
 import styles from '@/styles/[slug].module.css'
-import router from "next/router"
+import router, { useRouter } from "next/router"
 import { fetchUserById } from "@/lib/users"
 import { fetchCommentsByEntryId, fetchPostComment } from "@/lib/comments"
 import { CommentDetail } from "@/components/CommentDetail"
@@ -37,8 +37,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
     const [comments, setComments] = useState<Comment[]>([])
     const [refresh, setRefresh] = useState<boolean>(false)
     const user = useContext(UserContext)?.user
-    console.log(entry)
-    console.log(entry.id)
+    const router = useRouter()
     const [newComment, setNewComment] = useState<Omit<Comment, "id">>(
         {
             user_id: user?.id!,
@@ -136,9 +135,17 @@ export default function EntryPage({entry}: {entry: Entry}) {
         }
     }
 
+    function backToTableOfContents() {
+        router.push({
+            pathname: '/journal',
+            query: { state: 'open' }
+        })
+    }
+
     return (
         <div className={styles.book}>
             <div className={styles.commentsPage}>
+                <button className={styles.backButton} onClick={backToTableOfContents}>&larr;</button>
                 <img className={styles.img} src={entry.img}></img>
                 <div className={styles.comments}>
                     {
