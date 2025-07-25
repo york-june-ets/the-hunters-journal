@@ -54,6 +54,18 @@ export const fetchCreateUser = async (signupData: Omit<User,"id">): Promise<Omit
     return data
 }
 
+export const fetchUserByEmail = async (email: string): Promise<string> => {
+    const url = `http://localhost:8080/api/users/email/${email}`
+    const response = await fetch(url, {
+        method: "GET"
+    })
+    if (!response.ok) {
+        throw new Error(`Failed to fetch user`)
+    }
+    const data: string = await response.json()
+    return data
+}
+
 // export const fetchUserById = async (id: number): Promise<User | undefined> => {
 //     const users = await fetchUsers()
 //     return users.find(user => user.id === id)
