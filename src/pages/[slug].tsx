@@ -139,6 +139,7 @@ export default function EntryPage({entry}: {entry: Entry}) {
     return (
         <div className={styles.book}>
             <div className={styles.commentsPage}>
+                <img src={entry.img}></img>
                 <div id="comments">
                     {
                         comments.map((comment: Comment) => (

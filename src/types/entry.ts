@@ -3,4 +3,5 @@ export type Entry = {
     title: string
     body: string
     user_id: number
+    img: string
 }
